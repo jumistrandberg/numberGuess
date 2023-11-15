@@ -9,6 +9,12 @@ let lifeCounter = Number(lives.innerHTML);
 const formText = document.getElementById('formText')
 const restartBtn = document.querySelector('button'[1])
 const guessedNumsList = [];
+let resetBtn;
+
+// focus on input
+window.addEventListener('load', function() {
+    guessInput.focus();
+})
 
 //Random number
 const randomNumber = Math.floor(Math.random() * 10) + 1;
@@ -74,6 +80,21 @@ function youLose() {
   guessInput.disabled = true;
   guessBtn.disabled = true;
   formText.innerText= '';
+
+  //Restart game 
+  resetBtn = document.createElement('button');
+  resetBtn.textContent = 'Try Again';
+  document.body.appendChild(resetBtn);
+
+  resetBtn.addEventListener('click', function() {
+    location.reload();
+  });
+
+  document.addEventListener('keydown', function(event) {
+    if(event.key === 'Enter') {
+        location.reload();
+    };
+  })
 }; 
 
-//location.reload
+
