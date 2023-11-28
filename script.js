@@ -1,9 +1,10 @@
 // Global variables 
-const lives = document.getElementById("lives");
-const guessInput = document.getElementById("guess-input");
-const guessBtn = document.querySelector("button");
-const feedback = document.getElementById("feedback");
-const guessedList = document.getElementById("guessedList");
+const lives = document.getElementById('lives');
+const guessInput = document.getElementById('guess-input');
+const guessBtn = document.querySelector('button');
+const feedback = document.getElementById('feedback');
+const guessedList = document.getElementById('guessedList');
+const lifeText = document.getElementById('life-text');
 let guessValue;
 let lifeCounter = Number(lives.innerHTML);
 const formText = document.getElementById('formText')
@@ -20,13 +21,13 @@ window.addEventListener('load', function() {
 const randomNumber = Math.floor(Math.random() * 10) + 1;
 
 //Listen for button click
-guessBtn.addEventListener("click", function (event) {
+guessBtn.addEventListener('click', function (event) {
   event.preventDefault();
   guessValue = guessInput.value;
 
   console.log(randomNumber);
   logGuesses();
-  guessInput.value = "";
+  guessInput.value = '';
   guessInput.focus();
 });
 
@@ -52,16 +53,19 @@ function logGuesses() {
     losingGuesses();
   } else {
     // Give feedback to direct player 
-    feedback.innerText = "Guess a number between 1 and 10";
+    feedback.innerText = 'Guess a number between 1 and 10';
   };
 };
 
 // Compare player guess and randomNumber and provide feedback 
 function compare() {
   if (guessValue < randomNumber) {
-    feedback.innerText = "Too low!";
+    feedback.innerText = 'Too low!';
   } else if (guessValue > randomNumber) {
-    feedback.innerText = "Too high!";
+    feedback.innerText = 'Too high!';
+  } else {
+    feedback.innerText = 'You win'
+    youWin();
   };
 };
 
@@ -74,9 +78,17 @@ function losingGuesses() {
   lives.innerHTML = lifeCounter;
 };
 
+function youWin () {
+  lifeText.innerText = 'Got it on the first try! Lucky!'
+  restart();
+}
 
 function youLose() {
-  feedback.innerHTML = "Loser LOSER!!!";
+  feedback.innerHTML = 'Loser LOSER!!!';
+  restart()
+}; 
+
+function restart() {
   guessInput.disabled = true;
   guessBtn.disabled = true;
   formText.innerText= '';
@@ -90,11 +102,12 @@ function youLose() {
     location.reload();
   });
 
+ 
+
   document.addEventListener('keydown', function(event) {
     if(event.key === 'Enter') {
         location.reload();
     };
   })
-}; 
-
+}
 
